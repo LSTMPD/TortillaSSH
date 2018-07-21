@@ -9,7 +9,9 @@ My own SSH client made in Python. This project is focused on customization and m
 ## How to setup
 
 1. Connect yourself to the world of Internet.
-2. Download all used libraries.
+2. Run setup.py 
+3. Answer required questions to generate a config file
+4. Run client.py
 
 
 ## Executing
