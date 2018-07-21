@@ -1,16 +1,29 @@
 import paramiko
 import argparse
+import socket
+import logging
+import coloredlogs
+from pyfiglet import Figlet
+# ------------------- Logging ----------------------- #
+logger = logging.getLogger(__name__)
+coloredlogs.install(level='DEBUG', logger=logger)
+# --------------------------------------------------- #
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("host", help="Target SSH server you want to connect to")
 parser.add_argument("user", help="Username to use")
 parser.add_argument("passw", help="Password for the user to authenticate")
 args = parser.parse_args()
-#print(args.host)
+# print(args.host)
+
+f = Figlet(font='slant')
+print(f.renderText('PySSH'))
+client = paramiko.SSHClient()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
 
 def connect_to_ssh(host, user, passw):
-    client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         logger.debug("Connecting to: " + host)
         client.connect(host, 22, user, passw)
@@ -27,6 +40,15 @@ def connect_to_ssh(host, user, passw):
         print("No response from SSH server")
         exit()
 
-connect_to_ssh(host, user, passw)
 
-# TODO: Send Commands and get output
+connect_to_ssh(args.host, args.user, args.passw)
+
+try:
+    while True:
+        stdin, stdout, stderr = client.exec_command(input("> "), get_pty=True)
+        stdin.close()
+        for line in iter(stdout.readline, ""):
+            print(line, end="")
+except KeyboardInterrupt:
+    print("[!] Exiting...")
+    exit()
