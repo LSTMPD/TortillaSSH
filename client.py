@@ -17,7 +17,7 @@ if 'config.ini':
     banner = config.get("Settings", "banner")
 
 else:
-    print("[ERROR] config.ini does not exist! Please run setup.py!")
+    debugger.error("[ERROR] config.ini does not exist! Please run setup.py!")
     exit()
 # --------------------------------------------- #
 
@@ -51,18 +51,18 @@ def connect_to_ssh(host, user, passw):
         client.connect(host, 22, user, passw)
         logger.debug("Successfully connected!")
     except socket.error:
-        print("Computer is offline or port 22 is closed")
+        debugger.error("Computer is offline or port 22 is closed")
         exit()
     except paramiko.ssh_exception.AuthenticationException:
-        print("Wrong Password or Username")
-        # TODO: replace exit() and try again with different pass/username
+        debugger.error("Wrong Password or Username")
+        # TOD replace exit() and try again with different pass/username
         exit()
     except paramiko.ssh_exception.SSHException:
         # socket is open, but not SSH service responded
-        print("No response from SSH server")
+        debugger.error("No response from SSH server")
         exit()
     except KeyboardInterrupt:
-        print("[KeyboardInterrupt] Exiting..")
+        debugger.error("[KeyboardInterrupt] Exiting..")
 
 
 connect_to_ssh(args.host, args.user, args.passw)
@@ -74,5 +74,5 @@ try:
         for line in iter(stdout.readline, ""):
             print(line, end="")
 except KeyboardInterrupt:
-    print("[!] Exiting...")
+    debugger.eror("[!] Exiting...")
     exit()
