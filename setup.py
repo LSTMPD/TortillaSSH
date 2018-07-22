@@ -1,5 +1,11 @@
+import platform
+opsys = platform.system()
+import os
+
 import subprocess
 subprocess.call(['pip', 'install', '-rrequirements.txt'])
+if opsys == "Windows":
+    os.system("cls")
 
 import configparser
 import sys
@@ -16,9 +22,15 @@ except KeyboardInterrupt:
     print("Exiting..")
     exit()
 
+import platform
+opsys = platform.system()
+
 config = configparser.ConfigParser()
+config.add_section("Operating System")
+config.set("Operating System", "system", opsys)
 config.add_section("Settings")
 config.set("Settings", "banner", choice)
+
 
 
 with open("config.ini", "w") as config_file:

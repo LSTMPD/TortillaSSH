@@ -4,6 +4,7 @@ import socket
 import logging
 import coloredlogs
 import configparser
+import os
 
 # ------------------- Logging ------------------ #
 logger = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ if 'config.ini':
     config = configparser.ConfigParser()
     config.read('config.ini')
     banner = config.get("Settings", "banner")
+    opsys = config.get("Operating System", "system")
 
 else:
     debugger.error("[ERROR] config.ini does not exist! Please run setup.py!")
@@ -36,6 +38,13 @@ if not args.user:
 if not args.passw:
     args.passw = input("password: ")
 # ---------------------------------------------- #
+
+# ------------------- Cleaning ----------------- #
+def screenclean():
+    if opsys == "Windows":
+        os.system("cls")
+
+screenclean()
 if banner == "yes":
     from pyfiglet import Figlet
     f = Figlet(font='slant')
