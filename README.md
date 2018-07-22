@@ -19,8 +19,13 @@ My own SSH client made in Python. This project is focused on customization and m
 Windows & Linux:
 
 ```
-python client.py host username password
+python client.py --host targetip --user username --passw password
 ```
+or
+```
+python client.py
+```
+And you will be asked for these credentials.
 
 ## Meta
 
