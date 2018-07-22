@@ -3,22 +3,37 @@ import argparse
 import socket
 import logging
 import coloredlogs
-from pyfiglet import Figlet
-# ------------------- Logging ----------------------- #
+import configparser
+
+# ------------------- Logging ------------------ #
 logger = logging.getLogger(__name__)
 coloredlogs.install(level='DEBUG', logger=logger)
-# --------------------------------------------------- #
+# ---------------------------------------------- #
 
+# ------------------- Config ------------------- #
+if 'config.ini':
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    banner = config.get("Settings", "banner")
 
+else:
+    print("[ERROR] config.ini does not exist! Please run setup.py!")
+    exit()
+# --------------------------------------------- #
+
+# ------------------- ArgParse ---------------- #
 parser = argparse.ArgumentParser()
-parser.add_argument("host", help="Target SSH server you want to connect to")
+parser.add_argument("--host", help="Target SSH server you want to connect to")
 parser.add_argument("user", help="Username to use")
 parser.add_argument("passw", help="Password for the user to authenticate")
 args = parser.parse_args()
 # print(args.host)
+# ---------------------------------------------- #
+if banner == "yes":
+    from pyfiglet import Figlet
+    f = Figlet(font='slant')
+    print(f.renderText('TortillaSSH'))
 
-f = Figlet(font='slant')
-print(f.renderText('PySSH'))
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -39,6 +54,8 @@ def connect_to_ssh(host, user, passw):
         # socket is open, but not SSH service responded
         print("No response from SSH server")
         exit()
+    except KeyboardInterrupt:
+        print("[KeyboardInterrupt] Exiting..")
 
 
 connect_to_ssh(args.host, args.user, args.passw)
