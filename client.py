@@ -24,8 +24,8 @@ else:
 # ------------------- ArgParse ---------------- #
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="Target SSH server you want to connect to")
-parser.add_argument("user", help="Username to use")
-parser.add_argument("passw", help="Password for the user to authenticate")
+parser.add_argument("--user", help="Username to use")
+parser.add_argument("--passw", help="Password for the user to authenticate")
 args = parser.parse_args()
 # print(args.host)
 # ---------------------------------------------- #
