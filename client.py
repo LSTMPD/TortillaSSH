@@ -28,6 +28,13 @@ parser.add_argument("--user", help="Username to use")
 parser.add_argument("--passw", help="Password for the user to authenticate")
 args = parser.parse_args()
 # print(args.host)
+
+if not args.host:
+    args.host = input("host: ")
+if not args.user:
+    args.user = input("username: ")
+if not args.passw:
+    args.passw = input("password: ")
 # ---------------------------------------------- #
 if banner == "yes":
     from pyfiglet import Figlet
