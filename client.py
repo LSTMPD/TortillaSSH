@@ -43,7 +43,7 @@ if not args.passw:
 def screenclean():
     if opsys == "Windows":
         os.system("cls")
-
+# ---------------------------------------------- #
 screenclean()
 if banner == "yes":
     from pyfiglet import Figlet
