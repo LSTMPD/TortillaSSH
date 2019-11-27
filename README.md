@@ -2,7 +2,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/pylyf/tortillassh/badge/master)](https://www.codefactor.io/repository/github/pylyf/tortillassh/overview/master)
 > Customizable SSH client ![partyparrot](http://cultofthepartyparrot.com/parrots/coffeeparrot.gif)
 
-My own SSH client made in Python. This project is focused on customization and making your work easier.
+My firend's (@pylyf) SSH client made in Python. This project is focused on customization and making your work easier.
 
 ( IN DEVELOPMENT )
 
